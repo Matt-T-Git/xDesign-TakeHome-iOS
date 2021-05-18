@@ -14,94 +14,59 @@ struct Endpoint {
 }
 
 enum NetworkError: Error {
+    case general
     case dataEmpty
-    case dataInvalid
     case responseInvalid
-    case statusCode(Int)
+    case statusCode
+    case jsonDecode
 }
 
 class Network {
     
-    fileprivate let baseURL: String = "https://anapioficeandfire.com/api/"
+    let baseURL: String = "https://anapioficeandfire.com/api/"
     
-    public func getBooks() -> [Book]? {
-        var books: [Book]?  = nil
-        let semaphore = DispatchSemaphore (value: 0)
-        var request = URLRequest(url: URL(string: baseURL.appending(Endpoint.books))!)
-        request.httpMethod = "GET"
-        let config: URLSessionConfiguration = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 15
-        config.httpAdditionalHeaders = ["Content-Type": "application/json"]
-        let task = URLSession(configuration: config).dataTask(with: request, completionHandler: { (data, response, error) in
-            if (error != nil) {
-                self.handleError(error: error!)
-            }
-            guard let data = data else {
-                print(NetworkError.dataEmpty)
+    func makeRequest<T: Decodable>(url: URL, type: T.Type, completionHandler: @escaping (_ error: Error?, _ myObject: T?) -> ()) {
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            guard error == nil else {
+                self.handleError(error: error?.localizedDescription, type: .general)
                 return
             }
-            books = try? JSONDecoder().decode([Book].self, from: data)
-            semaphore.signal()
-        })
-        task.resume()
-        semaphore.wait()
-        return books
-    }
-    
-    func getHouses() -> [House]? {
-        var houses: [House]? = nil
-        let semaphore = DispatchSemaphore (value: 0)
-        var request = URLRequest(url: URL(string: "https://anapioficeandfire.com/api/houses")!)
-        request.httpMethod = "GET"
-        let config: URLSessionConfiguration = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 15
-        config.httpAdditionalHeaders = [
-            "Content-Type": "application/json"
-        ]
-        let task = URLSession(configuration: config).dataTask(with: request, completionHandler: { (data, response, error) in
-            if (error != nil) {
-                self.handleError(error: error!)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                if !(200...299).contains(httpResponse.statusCode) {
+                    self.handleError(error: "Server Error", type: .statusCode, code: httpResponse.statusCode)
+                }
             }
+            
             guard let data = data else {
-                print(NetworkError.dataEmpty)
+                self.handleError(type: .dataEmpty)
                 return
             }
-            houses = try? JSONDecoder().decode([House].self, from: data)
-            semaphore.signal()
-        })
-        task.resume()
-        semaphore.wait()
-        return houses
-    }
-    
-    func getCharacters() -> [Character]? {
-        var result: [Character]?  = nil
-        let semaphore = DispatchSemaphore (value: 0)
-        var request = URLRequest(url: URL(string: "https://anapioficeandfire.com/api/characters")!)
-        request.httpMethod = "GET"
-        let config: URLSessionConfiguration = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 15
-        config.httpAdditionalHeaders = [
-            "Content-Type": "application/json"
-        ]
-        let task = URLSession(configuration: config).dataTask(with: request, completionHandler: { (data, response, error) in
-            if (error != nil) {
-                self.handleError(error: error!)
-            }
-            guard let data = data else {
-                print(NetworkError.dataEmpty)
+            
+            do {
+                let myNewObject = try JSONDecoder().decode(T.self, from: data)
+                completionHandler(nil, myNewObject)
+            } catch let error {
+                completionHandler(error, nil)
                 return
             }
-            result = try? JSONDecoder().decode([Character].self, from: data)
-            semaphore.signal()
-        })
-        task.resume()
-        semaphore.wait()
-        return result
+        }.resume()
     }
     
-    private func handleError(error: Error) {
-        print(error.localizedDescription)
-        //TODO.. handle errors
+    private func handleError(error: String? = nil, type: NetworkError, code: Int? = nil) {
+    
+        switch type {
+        case .general:
+            print(error as Any)
+        case .dataEmpty:
+            print("Error! Empty Data")
+        case .responseInvalid:
+            print("Invalid response")
+        case .statusCode:
+            print(error?.appending(String(code ?? 0)) as Any)
+        case .jsonDecode:
+            print("JSON decoding error!")
+        }
     }
 }

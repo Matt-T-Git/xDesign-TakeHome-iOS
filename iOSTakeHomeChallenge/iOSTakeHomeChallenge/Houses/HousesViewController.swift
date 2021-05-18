@@ -21,12 +21,14 @@ class HousesViewController: UIViewController, UITableViewDataSource {
     }
 
     private func getHouses() {
-        if let houses = network.getHouses() {
-            cachedHouses = houses
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.houses))!, type: [House].self, completionHandler: { [self] error, houses in
+            if let houses = houses {
+                cachedHouses = houses
+                DispatchQueue.main.async {
+                    tableView.reloadData()
+                }
             }
-        }
+        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

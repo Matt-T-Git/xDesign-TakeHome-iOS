@@ -27,14 +27,14 @@ class BooksViewController: UIViewController, UITableViewDataSource {
     }
     
     private func getBooks() {
-        if let data = network.getBooks() { loadData(books: data) }
-    }
-    
-    private func loadData(books: [Book]) {
-        cachedBooks = books
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.books))!, type: [Book].self, completionHandler: { [self] error, books in
+            if let books = books {
+                cachedBooks = books
+                DispatchQueue.main.async {
+                    tableView.reloadData()
+                }
+            }
+        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

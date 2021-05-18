@@ -21,12 +21,14 @@ class CharactersViewController: UIViewController, UITableViewDataSource {
     }
     
     private func getCharacters() {
-        if let characters  = network.getCharacters() {
-            cachedCharacters = characters
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.characters))!, type: [Character].self, completionHandler: { [self] error, characters in
+            if let characters = characters {
+                cachedCharacters = characters
+                DispatchQueue.main.async {
+                    tableView.reloadData()
+                }
             }
-        }
+        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
