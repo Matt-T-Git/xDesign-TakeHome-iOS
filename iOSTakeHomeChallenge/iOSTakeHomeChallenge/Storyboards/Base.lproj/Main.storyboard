@@ -65,9 +65,9 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="dateLabel" destination="0Oq-hc-j9Q" id="4wr-YU-TxP"/>
-                                            <outlet property="pagesLabel" destination="XV5-4W-hrc" id="SlQ-K4-JtN"/>
-                                            <outlet property="titleLabel" destination="fMC-B4-7ZN" id="edZ-FT-0bd"/>
+                                            <outlet property="dateLabel" destination="0Oq-hc-j9Q" id="QtZ-up-Irc"/>
+                                            <outlet property="pagesLabel" destination="XV5-4W-hrc" id="uim-29-z8Z"/>
+                                            <outlet property="titleLabel" destination="fMC-B4-7ZN" id="oDk-ea-BTp"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -15,15 +15,10 @@ class BooksViewController: UIViewController, UITableViewDataSource {
     var cachedBooks: [Book] = []
     private let network = Network()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupTableView()
         getBooks()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        setupTableView()
-        super.viewWillAppear(animated)
     }
     
     private func setupTableView() {
@@ -31,13 +26,11 @@ class BooksViewController: UIViewController, UITableViewDataSource {
         tableView.applyStyles()
     }
     
-    func getBooks() {
-        if let data = network.getBooks() {
-            loadData(books: data)
-        }
+    private func getBooks() {
+        if let data = network.getBooks() { loadData(books: data) }
     }
     
-    func loadData(books: [Book]) {
+    private func loadData(books: [Book]) {
         cachedBooks = books
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -52,26 +45,5 @@ class BooksViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BooksTableViewCell") as! BooksTableViewCell
         cell.setupWith(book: cachedBooks[indexPath.row])
         return cell
-    }
-    
-}
-
-class BooksTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var pagesLabel: UILabel!
-    
-    func setupWith(book: Book) {
-        titleLabel.text = book.name
-        
-        let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        if let date = dateFormatter.date(from: book.released) {
-            dateFormatter.dateFormat = "MMM yyyy"
-            let monthYear = dateFormatter.string(from: date)
-            dateLabel.text = monthYear
-        }
-        pagesLabel.text = "\(book.numberOfPages) pages"
     }
 }

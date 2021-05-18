@@ -17,3 +17,17 @@ extension UITableView {
        backgroundView =  UIImageView(image: UIImage(named: imageName))
     }
 }
+
+extension String {
+    func toYearMonth() -> String {
+        var monthYear = ""
+        let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        if let date = dateFormatter.date(from: self) {
+            dateFormatter.dateFormat = "MMM yyyy"
+            monthYear = dateFormatter.string(from: date)
+            return monthYear
+        }
+        return monthYear
+    }
+}
