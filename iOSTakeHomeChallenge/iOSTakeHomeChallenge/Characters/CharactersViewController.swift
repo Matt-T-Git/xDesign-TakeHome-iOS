@@ -8,28 +8,11 @@
 import Foundation
 import UIKit
 
-struct Character: Codable {
-    let url: String
-    let name: String
-    let gender: String
-    let culture: String
-    let born: String
-    let died: String
-    let aliases:  [String]
-    let father: String
-    let mother: String
-    let spouse: String
-    let allegiances: [String]
-    let books: [String]
-    let povBooks: [String]
-    let tvSeries: [String]
-    let playedBy: [String]
-}
-
 class CharactersViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     var cachedCharacters: [Character] = []
+    let network = Network()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,24 +25,9 @@ class CharactersViewController: UIViewController, UITableViewDataSource {
     }
     
     func getCharacters() {
-        var request = URLRequest(url: URL(string: "https://anapioficeandfire.com/api/characters")!)
-        request.httpMethod = "GET"
-        let config: URLSessionConfiguration = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 15
-        config.httpAdditionalHeaders = [
-            "Content-Type": "application/json"
-        ]
-        let task = URLSession(configuration: config).dataTask(with: request, completionHandler: { (data, response, error) in
-            if (error != nil) {
-                print("Oops")
-            }
-            
-            let characters = try! JSONDecoder().decode([Character].self, from: data!)
-            self.loadData(characters: characters)
-            print(characters)
-            
-        })
-        task.resume()
+        if let characters  = network.getCharacters() {
+            loadData(characters: characters)
+        }
     }
     
     func loadData(characters: [Character]) {

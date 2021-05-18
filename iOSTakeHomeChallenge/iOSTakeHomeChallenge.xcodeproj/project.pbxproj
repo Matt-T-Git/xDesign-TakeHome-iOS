@@ -16,6 +16,8 @@
 		117E69AC25F7A3A600E313E3 /* HousesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E69AB25F7A3A600E313E3 /* HousesViewController.swift */; };
 		117E69AF25F7A3B600E313E3 /* CharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E69AE25F7A3B600E313E3 /* CharactersViewController.swift */; };
 		57A0F4912654091A00FD8FED /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F4902654091A00FD8FED /* Extensions.swift */; };
+		57A0F49B265430F200FD8FED /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F49A265430F200FD8FED /* Models.swift */; };
+		57A0F49D265433B900FD8FED /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F49C265433B900FD8FED /* Network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		117E69AB25F7A3A600E313E3 /* HousesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesViewController.swift; sourceTree = "<group>"; };
 		117E69AE25F7A3B600E313E3 /* CharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersViewController.swift; sourceTree = "<group>"; };
 		57A0F4902654091A00FD8FED /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		57A0F49A265430F200FD8FED /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		57A0F49C265433B900FD8FED /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,8 @@
 				57A0F49526542FFF00FD8FED /* Characters */,
 				57A0F4922654134100FD8FED /* Extensions */,
 				57A0F4962654301800FD8FED /* Storyboards */,
+				57A0F498265430B800FD8FED /* Network */,
+				57A0F499265430DA00FD8FED /* Models */,
 				117E699C25F7A21F00E313E3 /* Assets.xcassets */,
 				117E69A125F7A21F00E313E3 /* Info.plist */,
 			);
@@ -122,6 +128,22 @@
 				117E699525F7A21E00E313E3 /* SceneDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		57A0F498265430B800FD8FED /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				57A0F49C265433B900FD8FED /* Network.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		57A0F499265430DA00FD8FED /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				57A0F49A265430F200FD8FED /* Models.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,10 +218,12 @@
 			files = (
 				117E69AC25F7A3A600E313E3 /* HousesViewController.swift in Sources */,
 				57A0F4912654091A00FD8FED /* Extensions.swift in Sources */,
+				57A0F49D265433B900FD8FED /* Network.swift in Sources */,
 				117E69AF25F7A3B600E313E3 /* CharactersViewController.swift in Sources */,
 				117E69A925F7A39900E313E3 /* BooksViewController.swift in Sources */,
 				117E699425F7A21E00E313E3 /* AppDelegate.swift in Sources */,
 				117E699625F7A21E00E313E3 /* SceneDelegate.swift in Sources */,
+				57A0F49B265430F200FD8FED /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
