@@ -62,16 +62,14 @@
 		117E699225F7A21E00E313E3 /* iOSTakeHomeChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				117E699325F7A21E00E313E3 /* AppDelegate.swift */,
-				117E699525F7A21E00E313E3 /* SceneDelegate.swift */,
-				117E699925F7A21E00E313E3 /* Main.storyboard */,
-				117E699C25F7A21F00E313E3 /* Assets.xcassets */,
-				117E699E25F7A21F00E313E3 /* LaunchScreen.storyboard */,
-				117E69A125F7A21F00E313E3 /* Info.plist */,
-				117E69A825F7A39900E313E3 /* BooksViewController.swift */,
-				117E69AB25F7A3A600E313E3 /* HousesViewController.swift */,
-				117E69AE25F7A3B600E313E3 /* CharactersViewController.swift */,
+				57A0F4972654305D00FD8FED /* Delegates */,
+				57A0F49326542FCE00FD8FED /* Books */,
+				57A0F49426542FEC00FD8FED /* Houses */,
+				57A0F49526542FFF00FD8FED /* Characters */,
 				57A0F4922654134100FD8FED /* Extensions */,
+				57A0F4962654301800FD8FED /* Storyboards */,
+				117E699C25F7A21F00E313E3 /* Assets.xcassets */,
+				117E69A125F7A21F00E313E3 /* Info.plist */,
 			);
 			path = iOSTakeHomeChallenge;
 			sourceTree = "<group>";
@@ -82,6 +80,48 @@
 				57A0F4902654091A00FD8FED /* Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		57A0F49326542FCE00FD8FED /* Books */ = {
+			isa = PBXGroup;
+			children = (
+				117E69A825F7A39900E313E3 /* BooksViewController.swift */,
+			);
+			path = Books;
+			sourceTree = "<group>";
+		};
+		57A0F49426542FEC00FD8FED /* Houses */ = {
+			isa = PBXGroup;
+			children = (
+				117E69AB25F7A3A600E313E3 /* HousesViewController.swift */,
+			);
+			path = Houses;
+			sourceTree = "<group>";
+		};
+		57A0F49526542FFF00FD8FED /* Characters */ = {
+			isa = PBXGroup;
+			children = (
+				117E69AE25F7A3B600E313E3 /* CharactersViewController.swift */,
+			);
+			path = Characters;
+			sourceTree = "<group>";
+		};
+		57A0F4962654301800FD8FED /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				117E699E25F7A21F00E313E3 /* LaunchScreen.storyboard */,
+				117E699925F7A21E00E313E3 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		57A0F4972654305D00FD8FED /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				117E699325F7A21E00E313E3 /* AppDelegate.swift */,
+				117E699525F7A21E00E313E3 /* SceneDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
