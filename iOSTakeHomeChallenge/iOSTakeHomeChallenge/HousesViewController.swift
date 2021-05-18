@@ -35,6 +35,11 @@ class HousesViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         getHouses()
+        setupTableView()
+    }
+    
+    private func setupTableView() {
+        tableView.addBackground(imageName: "imgHouses")
     }
     
     func getHouses() {
