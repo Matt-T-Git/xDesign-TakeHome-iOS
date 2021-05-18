@@ -34,6 +34,11 @@ class CharactersViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         getCharacters()
+        setupTableView()
+    }
+    
+    private func setupTableView() {
+        tableView.addBackground(imageName: "imgCharacters")
     }
     
     func getCharacters() {
@@ -51,6 +56,7 @@ class CharactersViewController: UIViewController, UITableViewDataSource {
             
             let characters = try! JSONDecoder().decode([Character].self, from: data!)
             self.loadData(characters: characters)
+            print(characters)
             
         })
         task.resume()
@@ -83,10 +89,10 @@ class CharacterTableViewCell: UITableViewCell {
     @IBOutlet weak var seasonLabel: UILabel!
     
     func setupWith(character: Character) {
-        nameLabel.text = character.name
-        cultureLabel.text = character.culture
-        bornLabel.text = character.born
-        diedLabel.text = character.died
+        nameLabel.text = character.name == "" ? "Unavailable" : character.name
+        cultureLabel.text = character.culture == "" ? "Unavailable" : character.culture
+        bornLabel.text = character.born == "" ? "Unavailable" : character.born
+        diedLabel.text = character.died == "" ? "Unavailable" : character.died
         
         var seasons: String = ""
         
@@ -110,6 +116,6 @@ class CharacterTableViewCell: UITableViewCell {
             }
         }
         
-        seasonLabel.text = seasons
+        seasonLabel.text = seasons == "" ? "Unavailable" : seasons
     }
 }
