@@ -58,7 +58,9 @@ class CharactersViewController: UIViewController, UITableViewDataSource {
     
     func loadData(characters: [Character]) {
         cachedCharacters = characters
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

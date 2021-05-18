@@ -29,7 +29,18 @@ class BooksViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
         getBooks()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupTableView()
+        super.viewWillAppear(animated)
+    }
+    
+    private func setupTableView() {
+        tableView.addBackground(imageName: "imgBooks")
+        tableView.applyStyles()
     }
     
     func getBooks() {
@@ -54,7 +65,9 @@ class BooksViewController: UIViewController, UITableViewDataSource {
     
     func loadData(books: [Book]) {
         cachedBooks = books
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,7 +90,14 @@ class BooksTableViewCell: UITableViewCell {
     
     func setupWith(book: Book) {
         titleLabel.text = book.name
-        dateLabel.text = book.released
-        pagesLabel.text =  String(book.numberOfPages)
+        
+        let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        if let date = dateFormatter.date(from: book.released) {
+            dateFormatter.dateFormat = "MMM yyyy"
+            let monthYear = dateFormatter.string(from: date)
+            dateLabel.text = monthYear
+        }
+        pagesLabel.text = "\(book.numberOfPages) pages"
     }
 }

@@ -15,6 +15,7 @@
 		117E69A925F7A39900E313E3 /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E69A825F7A39900E313E3 /* BooksViewController.swift */; };
 		117E69AC25F7A3A600E313E3 /* HousesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E69AB25F7A3A600E313E3 /* HousesViewController.swift */; };
 		117E69AF25F7A3B600E313E3 /* CharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E69AE25F7A3B600E313E3 /* CharactersViewController.swift */; };
+		57A0F4912654091A00FD8FED /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F4902654091A00FD8FED /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		117E69A825F7A39900E313E3 /* BooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewController.swift; sourceTree = "<group>"; };
 		117E69AB25F7A3A600E313E3 /* HousesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesViewController.swift; sourceTree = "<group>"; };
 		117E69AE25F7A3B600E313E3 /* CharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersViewController.swift; sourceTree = "<group>"; };
+		57A0F4902654091A00FD8FED /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +71,17 @@
 				117E69A825F7A39900E313E3 /* BooksViewController.swift */,
 				117E69AB25F7A3A600E313E3 /* HousesViewController.swift */,
 				117E69AE25F7A3B600E313E3 /* CharactersViewController.swift */,
+				57A0F4922654134100FD8FED /* Extensions */,
 			);
 			path = iOSTakeHomeChallenge;
+			sourceTree = "<group>";
+		};
+		57A0F4922654134100FD8FED /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				57A0F4902654091A00FD8FED /* Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				117E69AC25F7A3A600E313E3 /* HousesViewController.swift in Sources */,
+				57A0F4912654091A00FD8FED /* Extensions.swift in Sources */,
 				117E69AF25F7A3B600E313E3 /* CharactersViewController.swift in Sources */,
 				117E69A925F7A39900E313E3 /* BooksViewController.swift in Sources */,
 				117E699425F7A21E00E313E3 /* AppDelegate.swift in Sources */,
