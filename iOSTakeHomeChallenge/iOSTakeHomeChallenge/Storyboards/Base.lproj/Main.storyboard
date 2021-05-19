@@ -90,7 +90,7 @@
                         <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="tableView" destination="Sjf-1q-2xp" id="Mfn-YT-F6J"/>
+                        <outlet property="tableView" destination="Sjf-1q-2xp" id="M6i-2N-XSr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="83D-pv-v6O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

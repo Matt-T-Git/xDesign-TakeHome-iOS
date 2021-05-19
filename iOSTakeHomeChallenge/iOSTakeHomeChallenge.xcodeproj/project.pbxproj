@@ -21,6 +21,10 @@
 		57A0F4A72654571300FD8FED /* BooksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F4A62654571300FD8FED /* BooksTableViewCell.swift */; };
 		57A0F4A92654581300FD8FED /* HouseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F4A82654581300FD8FED /* HouseTableViewCell.swift */; };
 		57A0F4AB2654588200FD8FED /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F4AA2654588200FD8FED /* CharacterTableViewCell.swift */; };
+		57A0F4AD26547A9000FD8FED /* ConnectionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F4AC26547A9000FD8FED /* ConnectionChecker.swift */; };
+		57A0F4AF26547EAD00FD8FED /* BooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F4AE26547EAD00FD8FED /* BooksViewModel.swift */; };
+		57A0F4B126548B7E00FD8FED /* HousesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F4B026548B7E00FD8FED /* HousesViewModel.swift */; };
+		57A0F4B326548D5000FD8FED /* CharactersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A0F4B226548D5000FD8FED /* CharactersViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,10 @@
 		57A0F4A62654571300FD8FED /* BooksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksTableViewCell.swift; sourceTree = "<group>"; };
 		57A0F4A82654581300FD8FED /* HouseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTableViewCell.swift; sourceTree = "<group>"; };
 		57A0F4AA2654588200FD8FED /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
+		57A0F4AC26547A9000FD8FED /* ConnectionChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionChecker.swift; sourceTree = "<group>"; };
+		57A0F4AE26547EAD00FD8FED /* BooksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewModel.swift; sourceTree = "<group>"; };
+		57A0F4B026548B7E00FD8FED /* HousesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesViewModel.swift; sourceTree = "<group>"; };
+		57A0F4B226548D5000FD8FED /* CharactersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,7 @@
 			children = (
 				117E69A825F7A39900E313E3 /* BooksViewController.swift */,
 				57A0F4A62654571300FD8FED /* BooksTableViewCell.swift */,
+				57A0F4AE26547EAD00FD8FED /* BooksViewModel.swift */,
 			);
 			path = Books;
 			sourceTree = "<group>";
@@ -108,6 +117,7 @@
 			children = (
 				117E69AB25F7A3A600E313E3 /* HousesViewController.swift */,
 				57A0F4A82654581300FD8FED /* HouseTableViewCell.swift */,
+				57A0F4B026548B7E00FD8FED /* HousesViewModel.swift */,
 			);
 			path = Houses;
 			sourceTree = "<group>";
@@ -117,6 +127,7 @@
 			children = (
 				117E69AE25F7A3B600E313E3 /* CharactersViewController.swift */,
 				57A0F4AA2654588200FD8FED /* CharacterTableViewCell.swift */,
+				57A0F4B226548D5000FD8FED /* CharactersViewModel.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -143,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				57A0F49C265433B900FD8FED /* Network.swift */,
+				57A0F4AC26547A9000FD8FED /* ConnectionChecker.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -228,10 +240,14 @@
 				117E69AC25F7A3A600E313E3 /* HousesViewController.swift in Sources */,
 				57A0F4912654091A00FD8FED /* Extensions.swift in Sources */,
 				57A0F49D265433B900FD8FED /* Network.swift in Sources */,
+				57A0F4AD26547A9000FD8FED /* ConnectionChecker.swift in Sources */,
 				57A0F4A72654571300FD8FED /* BooksTableViewCell.swift in Sources */,
+				57A0F4B126548B7E00FD8FED /* HousesViewModel.swift in Sources */,
 				57A0F4A92654581300FD8FED /* HouseTableViewCell.swift in Sources */,
 				57A0F4AB2654588200FD8FED /* CharacterTableViewCell.swift in Sources */,
 				117E69AF25F7A3B600E313E3 /* CharactersViewController.swift in Sources */,
+				57A0F4B326548D5000FD8FED /* CharactersViewModel.swift in Sources */,
+				57A0F4AF26547EAD00FD8FED /* BooksViewModel.swift in Sources */,
 				117E69A925F7A39900E313E3 /* BooksViewController.swift in Sources */,
 				117E699425F7A21E00E313E3 /* AppDelegate.swift in Sources */,
 				117E699625F7A21E00E313E3 /* SceneDelegate.swift in Sources */,
