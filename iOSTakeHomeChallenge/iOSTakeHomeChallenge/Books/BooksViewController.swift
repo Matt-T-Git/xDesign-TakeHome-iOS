@@ -16,16 +16,26 @@ class BooksViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadTable), name: Notification.Name("filteredBooks"), object: nil)
-        viewModel.setupTableView(tableView: tableView)
+        
         tableView.dataSource = viewModel
+        viewModel.setupTableView(tableView: tableView)
         viewModel.setupSearchBar(searchBar: searchBar)
+        
         navigationItem.titleView = searchBar
         viewModel.getData() {_ in self.reloadTable()}
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
+        tap.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tap)
     }
     
     @objc private func reloadTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+    @objc private func hideKeyboard() {
+        searchBar.endEditing(true)
     }
 }

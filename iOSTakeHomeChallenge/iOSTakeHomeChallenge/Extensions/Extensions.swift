@@ -11,6 +11,7 @@ extension UITableView {
     func applyStyles() {
         self.contentInset = UIEdgeInsets(top: 220, left: 0, bottom: 0, right: 0)
         backgroundView = UIImageView(image: UIImage(named: "imgBooks"))
+        allowsSelection = false
     }
     
     func addBackground(imageName: String) {
