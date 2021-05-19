@@ -7,14 +7,21 @@
 
 import UIKit
 
-class BooksViewModel: NSObject, UITableViewDataSource {
+class BooksViewModel: NSObject, UITableViewDataSource, UISearchBarDelegate {
     
     private var cachedBooks: [Book] = []
+    private var filteredBooks: [Book] = []
     private let network = Network()
     
     func setupTableView(tableView: UITableView) {
         tableView.addBackground(imageName: "imgBooks")
         tableView.applyStyles()
+    }
+    
+    func setupSearchBar(searchBar: UISearchBar) {
+        searchBar.delegate = self
+        searchBar.addStyles()
+        searchBar.placeholder = "Search"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -34,5 +41,30 @@ class BooksViewModel: NSObject, UITableViewDataSource {
                 completionHandler(true)
             }
         })
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let searchText = searchBar.text
+        guard !searchText!.isEmpty || searchText != "" else {
+            network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.books))!, type: [Book].self, completionHandler: { [self] error, books in
+                if let books = books {
+                    cachedBooks = books
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredBooks"), object: nil)
+                }
+            })
+            return
+        }
+        
+        network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.books))!, type: [Book].self, completionHandler: { [self] error, books in
+            if let books = books {
+                let filtered = books.filter {book in return book.name.contains(searchText!)}
+                cachedBooks = filtered
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredBooks"), object: nil)
+            }
+        })
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }

@@ -14,11 +14,11 @@ struct Endpoint {
 }
 
 enum NetworkError: Error {
-    case general
+    case connection
     case dataEmpty
-    case responseInvalid
-    case statusCode
+    case general
     case jsonDecode
+    case serverError
 }
 
 class Network {
@@ -26,6 +26,12 @@ class Network {
     let baseURL: String = "https://anapioficeandfire.com/api/"
     
     func makeRequest<T: Decodable>(url: URL, type: T.Type, completionHandler: @escaping (_ error: Error?, _ myObject: T?) -> ()) {
+        
+        guard ConnectionChecker.isConnectedToNetwork() else {
+            self.handleError(error: nil, type: .connection)
+            return
+        }
+
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             
             guard error == nil else {
@@ -35,7 +41,7 @@ class Network {
             
             if let httpResponse = response as? HTTPURLResponse {
                 if !(200...299).contains(httpResponse.statusCode) {
-                    self.handleError(error: "Server Error", type: .statusCode, code: httpResponse.statusCode)
+                    self.handleError(error: "Server Error", type: .serverError, code: httpResponse.statusCode)
                 }
             }
             
@@ -57,16 +63,16 @@ class Network {
     private func handleError(error: String? = nil, type: NetworkError, code: Int? = nil) {
     
         switch type {
+        case .connection:
+            print("Connection Error!, Unable to connect to the internet.")
         case .general:
-            print(error as Any)
+            print("Error: \(error ?? "Unknown")")
         case .dataEmpty:
             print("Error! Empty Data")
-        case .responseInvalid:
-            print("Invalid response")
-        case .statusCode:
-            print(error?.appending(String(code ?? 0)) as Any)
+        case .serverError:
+            if let error = error {print(error.appending(String(code ?? 0)))}
         case .jsonDecode:
-            print("JSON decoding error!")
+            print("JSON Decoding Error!, Unable to Decode JSON.")
         }
     }
 }

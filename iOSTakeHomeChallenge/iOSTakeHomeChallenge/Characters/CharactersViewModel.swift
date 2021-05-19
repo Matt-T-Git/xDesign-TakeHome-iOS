@@ -7,10 +7,16 @@
 
 import UIKit
 
-class CharactersViewModel: NSObject, UITableViewDataSource {
+class CharactersViewModel: NSObject, UITableViewDataSource, UISearchBarDelegate {
     
     private var cachedCharacters: [Character] = []
     private let network = Network()
+    
+    func setupSearchBar(searchBar: UISearchBar) {
+        searchBar.delegate = self
+        searchBar.addStyles()
+        searchBar.placeholder = "Search"
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cachedCharacters.count
@@ -29,5 +35,30 @@ class CharactersViewModel: NSObject, UITableViewDataSource {
                 completionHandler(true)
             }
         })
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let searchText = searchBar.text
+        guard !searchText!.isEmpty || searchText != "" else {
+            network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.characters))!, type: [Character].self, completionHandler: { [self] error, characters in
+                if let characters = characters {
+                    cachedCharacters = characters
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredCharacters"), object: nil)
+                }
+            })
+            return
+        }
+        
+        network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.characters))!, type: [Character].self, completionHandler: { [self] error, characters in
+            if let characters = characters {
+                let filtered = characters.filter {character in return character.name.contains(searchText!)}
+                cachedCharacters = filtered
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredCharacters"), object: nil)
+            }
+        })
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
