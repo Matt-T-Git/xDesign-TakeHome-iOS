@@ -34,10 +34,11 @@ class BooksViewModel: NSObject, UITableViewDataSource, UISearchBarDelegate {
         cachedBooks.count
     }
     
-    func getData(completionHandler: @escaping (Bool) -> Void) {
+    func getData(isFiltered: Bool, searchText: String, completionHandler: @escaping (Bool) -> Void) {
         network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.books))!, type: [Book].self, completionHandler: { [self] error, books in
             if let books = books {
-                cachedBooks = books
+                let filtered = books.filter {book in return book.name.contains(searchText)}
+                cachedBooks = isFiltered ? filtered : books
                 completionHandler(true)
             }
         })
@@ -45,22 +46,15 @@ class BooksViewModel: NSObject, UITableViewDataSource, UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let searchText = searchBar.text
-        guard !searchText!.isEmpty || searchText != "" else {
-            network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.books))!, type: [Book].self, completionHandler: { [self] error, books in
-                if let books = books {
-                    cachedBooks = books
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredBooks"), object: nil)
-                }
+        guard searchText!.isEmpty || searchText == "" else {
+            getData(isFiltered: true, searchText: searchText!, completionHandler:  {_ in
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredBooks"), object: nil)
             })
             return
         }
         
-        network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.books))!, type: [Book].self, completionHandler: { [self] error, books in
-            if let books = books {
-                let filtered = books.filter {book in return book.name.contains(searchText!)}
-                cachedBooks = filtered
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredBooks"), object: nil)
-            }
+        getData(isFiltered: false, searchText: "", completionHandler:  {_ in
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredBooks"), object: nil)
         })
     }
     
