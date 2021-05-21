@@ -24,7 +24,8 @@ class HousesViewController: UIViewController {
         
         viewModel.setupSearchBar(searchBar: searchBar)
         navigationItem.titleView = searchBar
-        viewModel.getData() {_ in self.reloadTable()}
+        viewModel.getData(isFiltered: false, searchText: "", completionHandler: {_ in self.reloadTable()
+        })
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
         tap.cancelsTouchesInView = false

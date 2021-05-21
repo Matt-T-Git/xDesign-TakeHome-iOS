@@ -27,10 +27,11 @@ class HousesViewModel: NSObject, UITableViewDataSource, UISearchBarDelegate {
         return cell
     }
 
-    func getData(completionHandler: @escaping (Bool) -> Void) {
+    func getData(isFiltered: Bool, searchText: String, completionHandler: @escaping (Bool) -> Void) {
         network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.houses))!, type: [House].self, completionHandler: { [self] error, houses in
             if let houses = houses {
-                cachedHouses = houses
+                let filtered = houses.filter {house in return house.name.contains(searchText)}
+                cachedHouses = isFiltered ? filtered : houses
                 completionHandler(true)
             }
         })
@@ -38,22 +39,14 @@ class HousesViewModel: NSObject, UITableViewDataSource, UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let searchText = searchBar.text
-        guard !searchText!.isEmpty || searchText != "" else {
-            network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.houses))!, type: [House].self, completionHandler: { [self] error, houses in
-                if let houses = houses {
-                    cachedHouses = houses
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredHouses"), object: nil)
-                }
+        guard searchText!.isEmpty || searchText == "" else {
+            getData(isFiltered: true, searchText: searchText!, completionHandler:  {_ in
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredHouses"), object: nil)
             })
             return
         }
-        
-        network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.houses))!, type: [House].self, completionHandler: { [self] error, houses in
-            if let houses = houses {
-                let filtered = houses.filter {house in return house.name.contains(searchText!)}
-                cachedHouses = filtered
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredHouses"), object: nil)
-            }
+        getData(isFiltered: false, searchText: "", completionHandler:  {_ in
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredHouses"), object: nil)
         })
     }
     

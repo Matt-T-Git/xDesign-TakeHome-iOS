@@ -29,7 +29,6 @@ class MockURLSession: URLSession {
 class MockURLSessionDataTask: URLSessionDataTask {
     private let onResume: () -> Void
 
-    //TODO: - Fix warning 
     init(onResume: @escaping () -> Void) {
         self.onResume = onResume
     }
