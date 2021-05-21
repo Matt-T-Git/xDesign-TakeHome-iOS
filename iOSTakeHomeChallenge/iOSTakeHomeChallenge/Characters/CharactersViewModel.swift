@@ -28,10 +28,11 @@ class CharactersViewModel: NSObject, UITableViewDataSource, UISearchBarDelegate 
         return cell
     }
     
-    func getData(completionHandler: @escaping (Bool) -> Void) {
+    func getData(isFiltered: Bool, searchText: String, completionHandler: @escaping (Bool) -> Void) {
         network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.characters))!, type: [Character].self, completionHandler: { [self] error, characters in
             if let characters = characters {
-                cachedCharacters = characters
+                let filtered = characters.filter {character in return character.name.contains(searchText)}
+                cachedCharacters = isFiltered ?  filtered : characters
                 completionHandler(true)
             }
         })
@@ -39,23 +40,16 @@ class CharactersViewModel: NSObject, UITableViewDataSource, UISearchBarDelegate 
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let searchText = searchBar.text
-        guard !searchText!.isEmpty || searchText != "" else {
-            network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.characters))!, type: [Character].self, completionHandler: { [self] error, characters in
-                if let characters = characters {
-                    cachedCharacters = characters
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredCharacters"), object: nil)
-                }
+        guard searchText!.isEmpty || searchText == "" else {
+            getData(isFiltered: true, searchText: searchText!, completionHandler:  {_ in
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredCharacters"), object: nil)
             })
             return
         }
-        
-        network.makeRequest(url: URL(string: network.baseURL.appending(Endpoint.characters))!, type: [Character].self, completionHandler: { [self] error, characters in
-            if let characters = characters {
-                let filtered = characters.filter {character in return character.name.contains(searchText!)}
-                cachedCharacters = filtered
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredCharacters"), object: nil)
-            }
+        getData(isFiltered: false, searchText: "", completionHandler:  {_ in
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "filteredCharacters"), object: nil)
         })
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
